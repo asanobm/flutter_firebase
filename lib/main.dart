@@ -3,10 +3,6 @@ import 'package:firebase_example/pages/signin_page.dart';
 import 'package:firebase_example/pages/signup_page.dart';
 import 'package:flutter/material.dart';
 
-import 'package:firebase_auth/firebase_auth.dart';
-
-FirebaseAuth firebaseAuth;
-
 void main() {
   runApp(MyApp());
 }

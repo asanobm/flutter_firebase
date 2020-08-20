@@ -3,11 +3,11 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_example/models/user_data.dart';
+import 'package:firebase_example/states/user.dart';
 import 'package:firebase_example/widgets/google_signin_button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-
-import '../main.dart';
 
 class SignInPage extends StatefulWidget {
   SignInPage({Key key}) : super(key: key);
@@ -59,12 +59,18 @@ class _SignInPageState extends State<SignInPage> {
 
   void transitionNextPage(User user) {
     if (user == null) return;
+    DocumentReference userRef = FirebaseFirestore.instance.collection('Users').doc(user.uid);
 
-    CollectionReference users = FirebaseFirestore.instance.collection('Users');
-
-    users.add();
-
-    Navigator.pushNamed(context, '/signup');
+    if (userRef == null) Navigator.pushNamed(context, '/home');
+    
+    userRef.get().then((value) => {
+      UserData.fromJson(value.data()).displayName == null ? {
+        userRef.set({'email': user.email}),
+        Navigator.pushNamed(context, '/signup')
+      }: {
+        Navigator.pushNamed(context, '/home')
+      }
+    });
   }
 
   @override

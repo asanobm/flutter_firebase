@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_example/main.dart';
+import 'package:firebase_example/states/user.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -12,8 +12,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
-  final User user = firebaseAuth.currentUser;
 
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
@@ -39,13 +37,13 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Image.network(this.user.photoURL),
-              Text(this.user.displayName,
+              Image.network(user.photoURL),
+              Text(user.displayName,
                 style: TextStyle(
                   fontSize: 24,
                 ),
               ),
-              Text(this.user.email,
+              Text(user.email,
                 style: TextStyle(
                   fontSize: 24,
                 ),
