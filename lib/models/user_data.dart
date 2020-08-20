@@ -2,10 +2,10 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'user_data.g.dart';
 
-@JsonSerializable(nullable: false)
+@JsonSerializable(nullable: true)
 class UserData {
-  final String displayName;
   final String email;
+  final String displayName;
   final DateTime birthday;
   final String gender;
   UserData({this.displayName, this.email, this.birthday, this.gender});
